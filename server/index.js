@@ -9,4 +9,4 @@ const server = app.listen  (PORT, async () => {
     await conn.sync({force: false})
 })
 
-module.exports = {server}
+module.exports = server
