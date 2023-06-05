@@ -8,7 +8,7 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 const sequelize = new Sequelize(
    
    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,  
-   { logging: false, native: false }
+   { logging: false, native: false, dialectModule: require('pg') }
 );
 
 //conexion a mysql
