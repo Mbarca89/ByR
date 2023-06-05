@@ -2,14 +2,31 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
 
+//conexion a postgres
 const sequelize = new Sequelize(
    
-   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/byr`,
-   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/railway`,
+   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/${DB_NAME}`,  
    { logging: false, native: false }
 );
+
+//conexion a mysql
+// sequelize = new Sequelize(
+//    DB_NAME,
+//    DB_USER,
+//    DB_PASSWORD,
+//     {
+//       host: DB_HOST,
+//       dialect: 'mysql'
+//     }
+//   );
+
+  sequelize.authenticate().then(() => {
+   console.log('Connection has been established successfully.');
+}).catch((error) => {
+   console.error('Unable to connect to the database: ', error);
+});
 
 // ejecutar la función de los modelos.
 const basename = path.basename(__filename);
