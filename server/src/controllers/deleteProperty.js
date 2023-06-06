@@ -11,6 +11,7 @@ const deleteProperty = async (req,res) => {
         await Images.destroy({where:{propertyId:id}})
         const folderPath = path.join('public/', id.toString());
         fs.rmSync(folderPath, { recursive: true });
+        return res.status(200).send('Propiedad eliminada')
     } catch (error) {
         return res.status(400).send(error.message)
     }

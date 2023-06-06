@@ -60,57 +60,57 @@ const List = () => {
             setConfirmDelete(false)
             await axios.delete(`${SERVER_URL}/properties/delete/${deleteId}`)
             setDeleteId('')
-            navigate('/list')
+            const { data } = await axios(`${SERVER_URL}/properties/list`)
+            await setProperties(data)
+            if (!filterData.length) setFilteredProperties(data)
         } else {
             setConfirmDelete(false)
         }
     }
 
-    console.log(editId,showEditor)
-
     return (
         <div>
             {!showEditor ?
-            <div className={style.list}>
-                {confirmDelete && <div className={style.confirmDelete}>
-                    <h2>Seguro que desea eliminar la propiedad?</h2>
-                    <button name='si' onClick={confirmDeleteHandler}>Si</button>
-                    <button name='cancelar' onClick={confirmDeleteHandler}>Cancelar</button>
-                </div>}
-                <div className={style.filterContainer}>
-                    <label htmlFor="name">Buscar</label>
-                    <input type="text" name='name' value={filterData.name} onChange={filterChangeHandler} />
-                    <button onClick={() => { navigate('/controlpanel') }}>Volver</button>
-                </div>
-                <div className={style.tableContainer}>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className={style.tableName}>Nombre</th>
-                                <th>Tipo</th>
-                                <th>Ubicacion</th>
-                                <th>Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredProperties.map((item) => (
-                                <tr key={item.id}>
-                                    <td>{item.name}</td>
-                                    <td>{item.type}</td>
-                                    <td>{item.location}</td>
-                                    <td>{item.currency} {item.price}</td>
-                                    <td><button name='editar' onClick={() => editHandler(item.id)}>Editar</button></td>
-                                    <td><button name='eliminar' onClick={() => deleteHandler(item.id)}>Eliminar</button></td>
+                <div className={style.list}>
+                    {confirmDelete && <div className={style.confirmDelete}>
+                        <h2>Seguro que desea eliminar la propiedad?</h2>
+                        <button name='si' onClick={confirmDeleteHandler}>Si</button>
+                        <button name='cancelar' onClick={confirmDeleteHandler}>Cancelar</button>
+                    </div>}
+                    <div className={style.filterContainer}>
+                        <label htmlFor="name">Buscar</label>
+                        <input type="text" name='name' value={filterData.name} onChange={filterChangeHandler} />
+                    </div>
+                    <div className={style.tableContainer}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th className={style.tableName}>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Ubicacion</th>
+                                    <th>Precio</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {filteredProperties.map((item) => (
+                                    <tr key={item.id}>
+                                        <td>{item.name}</td>
+                                        <td>{item.type}</td>
+                                        <td>{item.location}</td>
+                                        <td>{item.currency} {item.price}</td>
+                                        <td><button name='editar' onClick={() => editHandler(item.id)}>Editar</button></td>
+                                        <td><button name='eliminar' onClick={() => deleteHandler(item.id)}>Eliminar</button></td>
+                                        <td><button name='ver' onClick={() => {window.open(`../detail/${item.id}`, "_blank")}}>Ver</button></td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div> :
+                <div>
+                    <button className={style.cancelButton} onClick={cancelHandler}>Cancelar</button>
+                    <Editor id={editId} />
                 </div>
-            </div>:
-            <div>
-                <button className={style.cancelButton} onClick={cancelHandler}>Cancelar</button>
-                <Editor id={editId}/>
-            </div>
             }
 
         </div>
