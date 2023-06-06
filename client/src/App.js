@@ -28,7 +28,7 @@ function App() {
         <Route path='/admin' element={<Admin />} />
       </Routes>
     </div>
-  );
+  )
 }
 
 export default App;

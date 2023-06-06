@@ -14,18 +14,8 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
     border-radius: 15px;
 }
-
-.fade {
-    opacity: 0;
-  }
-  
-  .fade.slide {
-    opacity: 1;
-  }
 
 .left{
     width: 3%;

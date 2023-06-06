@@ -102,7 +102,7 @@ const Uploader = () => {
             await axios.post(`${SERVER_URL}/properties/upload`, formData)
             setUploaded(true)
         } catch (error) {
-            console.log(error)
+            window.alert(error.response.data)
         }
     }
 
@@ -145,7 +145,32 @@ const Uploader = () => {
         })
     }
 
-    console.log(data.featured)
+    const resetHandler = () => {
+        setData({
+            featured: false,
+            name: '',
+            description: '',
+            type: 'Cabaña',
+            category: 'Alquiler',
+            price: 0,
+            currency: '$',
+            location: 'San Luis',
+            size: 0,
+            constructed: 0,
+            bedrooms: 0,
+            bathrooms: 0,
+            kitchen: 0,
+            garage: 0,
+            others: [],
+            services: [],
+            amenities: [],
+        })
+        setOthersCheck(new Array(others.length).fill(false))
+        setServicesCheck(new Array(services.length).fill(false))
+        setAmenitiesCheck(new Array(amenities.length).fill(false))
+        setImages([])
+        setSelectedImages([])
+    }
 
     return (
 
@@ -301,15 +326,10 @@ const Uploader = () => {
             </div>
             <footer>
                 <button onClick={submitHandler}>Publicar</button>
-                <NavLink to='/controlpanel'>
-                    <button >Cancelar</button>
-                </NavLink>
+                <button onClick={resetHandler}>Reiniciar</button>
             </footer>
         </div> : <div>
             <h1>Propiedad publicada con exito!</h1>
-            <NavLink to='/controlpanel'>
-                <button >Volver</button>
-            </NavLink>
         </div>
     )
 }

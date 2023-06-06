@@ -99,22 +99,22 @@ const Properties = () => {
     }, [filters])
 
     const nextPage = () => {
-        if(!showData[0]) return null
+        if (!showData[0]) return null
         if (currentPage < Math.ceil(showData.length / cardsPerPage)) setCurrentPage(currentPage + 1)
     }
 
     const prevPage = () => {
-        if(!showData[0]) return null
+        if (!showData[0]) return null
         if (currentPage !== 1) setCurrentPage(currentPage - 1)
     }
 
     const firstPage = () => {
-        if(!showData[0]) return null
+        if (!showData[0]) return null
         setCurrentPage(1)
     }
 
     const lastPage = () => {
-        if(!showData[0]) return null
+        if (!showData[0]) return null
         setCurrentPage(Math.ceil(showData.length / cardsPerPage))
     }
 
@@ -122,7 +122,7 @@ const Properties = () => {
 
     return (
         <div className={style.properties}>
-            <header className={style.bar}>
+            <div className={style.bar}>
                 <img src={banner} alt="" />
                 <div className={style.buttonContainer}>
                     <div className={style.buttonDiv} onClick={showCategoryHandler}>
@@ -227,7 +227,7 @@ const Properties = () => {
                         </div>
                     </div>
                 </div>
-            </header>
+            </div>
             <div className={style.filterReset}>
                 <div className={style.resetContainer}>
                     {filters.category && <button name='reset' onClick={resetCategory}>{`${filters.category} x`}</button>}
@@ -240,28 +240,28 @@ const Properties = () => {
                 </div>
             </div>
             <div className={style.cardsAndPages}>
-            <div className={style.propertiesCards}>
-                {showData[0] ? showData.slice(firstCardIndex, lastCardIndex).map((property, index) => (
-                    <div key={index} className={style.propertyContainer}>
-                        <Property
-                            id={property.id}
-                            name={property.name}
-                            location={property.location}
-                            price={property.price}
-                            currency={property.currency}
-                            bedrooms={property.bedrooms}
-                            bathrooms={property.bathrooms}
-                            images={property.images}
-                            type={property.type}
-                            size={property.size}
-                            category={property.category}
-                        />
-                    </div>
-                )):<div><h1>No hay resultados</h1></div>}
-            </div>
-            <div className={style.paginationContainer}>
-                <Pagination totalCards={showData.length} currentPage={currentPage} nextPage={nextPage} prevPage={prevPage} firstPage={firstPage} lastPage={lastPage}></Pagination>
-            </div>
+                <div className={style.propertiesCards}>
+                    {showData[0] && showData.slice(firstCardIndex, lastCardIndex).map((property, index) => (
+                        <div key={index} className={style.propertyContainer}>
+                            <Property
+                                id={property.id}
+                                name={property.name}
+                                location={property.location}
+                                price={property.price}
+                                currency={property.currency}
+                                bedrooms={property.bedrooms}
+                                bathrooms={property.bathrooms}
+                                images={property.images}
+                                type={property.type}
+                                size={property.size}
+                                category={property.category}
+                            />
+                        </div>
+                    ))}
+                </div>
+                <div className={style.paginationContainer}>
+                    <Pagination totalCards={showData.length} currentPage={currentPage} nextPage={nextPage} prevPage={prevPage} firstPage={firstPage} lastPage={lastPage}></Pagination>
+                </div>
             </div>
         </div >
     )

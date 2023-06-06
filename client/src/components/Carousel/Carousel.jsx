@@ -52,9 +52,9 @@ const Carousel = () => {
     
     return (
         isLoaded ? <div className={style.container}>
-            <NavLink className={style.container} to={`/detail/${slides[currentImg].id}`}>
+            {slides[0] && <NavLink className={style.container} to={`/detail/${slides[currentImg].id}`}>
             <img className={style.slide} src={slides[currentImg].image}></img>
-            </NavLink>
+            </NavLink>}
             <div className={style.left} onClick={previous}> 〈 </div>
             <div className={style.right} onClick={next}> 〉 </div>
         </div> : <div><img src={loading} alt="" /></div>

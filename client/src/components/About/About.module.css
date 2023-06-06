@@ -1,6 +1,6 @@
 .about {
-    position: absolute;
-    right: 0;
+    position: relative;
+    left: 20%;
     width: 80%;
     height: 200%;
     display: flex;

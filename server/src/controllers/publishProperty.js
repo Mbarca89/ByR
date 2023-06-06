@@ -4,10 +4,11 @@ const fs = require('fs');
 const {SERVER_URL} = process.env
 
 const publishProperty = async (req, res) => {
-  const { data } = req.body;
-  const { images } = req.files;
-  const dataOk = JSON.parse(data);
   try {
+    const { data } = req.body;
+    if(!req.files) throw Error ('Elegir almenos 2 fotos')
+    const { images } = req.files;
+    const dataOk = JSON.parse(data);
     const result = await Properties.create({
       featured:dataOk.featured,
       name: dataOk.name,
@@ -27,13 +28,13 @@ const publishProperty = async (req, res) => {
       services: dataOk.services,
       amenities: dataOk.amenities,
     });
-
+    if(!images.length) throw Error ('Elegir almenos 2 fotos')
     const folderPath = path.join('public/', result.id.toString());
     fs.mkdir(folderPath, { recursive: true }, (error) => {
       if (error) {
         return res.status(500).json({ error: 'No se pudo crear la carpeta.' });
       }
-    })
+    })    
     images.forEach(async (image) => {
       const imagePath = path.join(folderPath, image.name).replace("\\","/"); // Ruta completa al archivo de destino
       image.mv(imagePath, (error) => {

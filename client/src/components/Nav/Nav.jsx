@@ -21,6 +21,7 @@ const Nav = () => {
                 <NavLink to='/empresa' className={style.button}>Empresa</NavLink>
             </div>
             <div className={style.line}></div>
+            <div className={style.mobileLine}></div>
             <div className={style.socialContainer}>
                 <a className={style.social} href={`https://www.instagram.com/byrinmobiliaria/`} target="_blank" rel="noopener noreferrer">
                     <img src={instagram} alt='B&R Inmobiliaria'></img>
